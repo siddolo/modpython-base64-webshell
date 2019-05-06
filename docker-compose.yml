@@ -9,5 +9,5 @@ services:
       - "8001:80"
     volumes:
       - ./sites-available:/etc/apache2/sites-available
-      - ./app:/var/www
+      - ./src:/var/www
 
