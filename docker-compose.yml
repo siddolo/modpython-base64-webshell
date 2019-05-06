@@ -1,0 +1,13 @@
+version: '3.3'
+
+services:
+  webshell:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:80"
+    volumes:
+      - ./sites-available:/etc/apache2/sites-available
+      - ./app:/var/www
+
