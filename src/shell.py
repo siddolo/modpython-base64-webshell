@@ -4,7 +4,7 @@ from mod_python import apache, util
 
 def main(req):
     try:
-        form = util.FieldStorage(req,keep_blank_values=1)
+        form = util.FieldStorage(req, keep_blank_values=1)
         
         #TODO: handle POST request in mod_python
         #len = int(req.headers_in["content-length"])
